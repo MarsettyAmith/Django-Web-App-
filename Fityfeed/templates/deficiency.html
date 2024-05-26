@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitamin Deficiency Checker</title>
+</head>
+<body>
+    <h2>Vitamin Deficiency Checker</h2>
+    <label for="deficiency">Enter deficiency:</label><br>
+    <input type="text" id="deficiency" name="deficiency" placeholder="e.g., Hairfall"><br><br>
+    <button onclick="checkDeficiency()">Check</button><br><br>
+    <div id="vitaminName"></div>
+
+    <script>
+        function checkDeficiency() {
+            var deficiency = document.getElementById("deficiency").value.toLowerCase();
+            var vitaminMapping = {
+                'hairfall': 'Hair fall can be caused by various factors including Vitamin D, Vitamin B7 (Biotin), and Vitamin E deficiencies, as well as others. It is important to consult a healthcare professional for proper diagnosis and treatment.'
+                // Add more detailed information about specific vitamins and their relation to deficiencies if needed.
+            };
+            var vitaminName = vitaminMapping[deficiency];
+            if (vitaminName) {
+                document.getElementById("vitaminName").innerHTML = "<strong>Vitamin Name:</strong> " + vitaminName;
+            } else {
+                document.getElementById("vitaminName").innerHTML = "No information available for this deficiency. Please consult a healthcare professional.";
+            }
+        }
+    </script>
+</body>
+</html>

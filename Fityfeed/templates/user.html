@@ -1,0 +1,100 @@
+{% extends 'main.html' %}
+{% block content %}
+<head> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head>
+{% include 'bmi.html' %}
+<br>
+<div style = "text-align: center;
+    margin: auto; background: #50b3a2;
+    color: white;
+    padding-top: 20px;
+    min-height: 70px;">
+	<span><a style="color:  black;font-weight: bold; font-family:Times New Roman ;font-size:20px;" class="hello-msg" href="{% url 'under' %}">Under Weight Food Suggestions</a></span>
+    <span><a style="color:  black;font-weight: bold; font-family:Times New Roman ; font-size:20px;" class="hello-msg" href="{% url 'over' %}">Over Weight Food Suggestions</a></span>
+	<span><a style="color:  black;font-weight: bold; font-family:Times New Roman ; font-size:20px;" class="hello-msg" href="{% url 'vitamin' %}">Vitamin Rich Foods</a></span>
+</div>
+<hr>
+{% include 'deficiency.html' %}
+<hr>
+<h3>Total number of items consumed today: {{cnt}}</h3>
+<style>
+body {background-image: url("https://images.unsplash.com/photo-1619350280773-188ac188d3e9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");}
+h3   {color:  black; font-family:Times New Roman ;}
+h2   {color:  black;font-family:Times New Roman ;}
+p    {color: red;font-family:Times New Roman ;}
+table {background-color:#FFD5F7;font-family:Times New Roman ;}
+</style>
+<div class="today">
+	<h2>Tracker</h2>
+	<div class="flex-box-row">
+		<h3>Calorie Limit: 2000</h3>
+		<h3>TotalCalories consumed: {{totalCalories}}</h3>
+		<h3>Left: {{ CalorieLeft }}</h3>
+	</div>
+	
+    <div class="card card-body">
+        <table>
+            <tr>
+                <th>fooditem</th>
+                <th>Calorie</th>
+                <th>Carbs</th>
+                <th>Fats</th>
+                <th>Protien</th>
+            </tr>
+            {% for food in foodlist %}
+            <tr>
+                <td>{{food.name}}</td>
+                <td> {{food.calorie}}</td>
+                <td> {{food.carbohydrate}}</td>
+                <td> {{food.fats}}</td>
+				<td> {{food.protein}}</td>
+			</tr>
+            {% endfor %}
+        </table>
+	</div>
+	<form action="{% url 'addFooditem' %}" method="POST">
+		{%csrf_token%}
+		<button type="submit" class="btn btn-success">
+			<span class="glyphicon glyphicon-plus"></span>
+		</button>
+	</form> 
+</div>
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+				{{myfilter.form}}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+		</div>
+	</div>
+</div>
+<br>
+<hr>
+<h3>Available items:</h3>
+<div style="overflow-y: auto; max-height: 300px;" class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>fooditem</th>
+					<th>Calorie</th>
+					<th>Carbs</th>
+					<th>Fats</th>
+					<th>Protien</th>
+				</tr>
+				{% for food in fooditem %}
+				<tr>
+					<td>{{food.name}}</td>
+					<td> {{food.calorie}}</td>
+					<td> {{food.carbohydrate}}</td>
+                    <td> {{food.fats}}</td>
+                    <td> {{food.protein}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}
